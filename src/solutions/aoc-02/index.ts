@@ -21,12 +21,12 @@ class Resolver {
     };
     let values = 0;
     this.lines.forEach((line) => {
-      // const { name } = parseLine(line, /(?<name>.+)/);
+      const { gameId, draws } = parseLine(
+        line,
+        /Game (?<gameId>.+): (?<draws>.+)/
+      );
       let possible = true;
-      const game = line.split(":")[0];
-      const gameId = line.substring(5, game.length);
-      const draws = line.split(":")[1].split(";");
-      draws.forEach((draw) => {
+      draws.split(";").forEach((draw) => {
         const colors = draw.split(",");
         colors.forEach((colorDraw) => {
           const split = colorDraw.trim().split(" ");
@@ -77,5 +77,5 @@ const day = "02";
 const testing = false;
 
 const resolver = new Resolver({ day, testing });
-// resolver.solve1();
-resolver.solve2();
+resolver.solve1();
+// resolver.solve2();
